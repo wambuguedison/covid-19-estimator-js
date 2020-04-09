@@ -21,7 +21,8 @@ const covid19ImpactEstimator = (data) => {
   output.impact.infectionsByRequestedTime = infectionsAtaTime(currentlyInfected, days);
   output.severeImpact.infectionsByRequestedTime = infectionsAtaTime(severelyInfected, days);
 
-  return data;
+  output.data = data;
+  return output;
 };
 
 export default covid19ImpactEstimator;
