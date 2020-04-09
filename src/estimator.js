@@ -21,6 +21,7 @@ const infectionsAtaTime = (currentlyInfected, days, data) => {
 };
 
 const covid19ImpactEstimator = (data) => {
+  // challenge 1
   const currentlyInfected = data.reportedCases * 10;
   output.impact.currentlyInfected = currentlyInfected;
 
@@ -30,6 +31,17 @@ const covid19ImpactEstimator = (data) => {
   const days = data.timeToElapse;
   output.impact.infectionsByRequestedTime = infectionsAtaTime(currentlyInfected, days, data);
   output.severeImpact.infectionsByRequestedTime = infectionsAtaTime(severelyInfected, days, data);
+
+  // challenge 2
+  const severeInfections = output.severeImpact.infectionsByRequestedTime;
+  output.severeCasesByRequestedTime = (15 / 100) * severeInfections;
+
+  const severeCases = output.severeCasesByRequestedTime;
+  const totalBeds = data.totalHospitalBeds;
+  const availableBeds = (35 / 100) * totalBeds;
+
+  const hospitalBeds = availableBeds - severeCases;
+  output.hospitalBedsByRequestedTime = hospitalBeds;
 
   output.data = data;
   return output;
