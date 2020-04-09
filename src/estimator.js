@@ -33,18 +33,23 @@ const covid19ImpactEstimator = (data) => {
   output.severeImpact.infectionsByRequestedTime = infectionsAtaTime(severelyInfected, days, data);
 
   // challenge 2
+  const infections = output.impact.infectionsByRequestedTime;
   const severeInfections = output.severeImpact.infectionsByRequestedTime;
-  output.severeCasesByRequestedTime = (15 / 100) * severeInfections;
+  output.impact.severeCasesByRequestedTime = (15 / 100) * infections;
+  output.severeImpact.severeCasesByRequestedTime = (15 / 100) * severeInfections;
 
-  const severeCases = output.severeCasesByRequestedTime;
   const totalBeds = data.totalHospitalBeds;
   const availableBeds = (35 / 100) * totalBeds;
 
-  const hospitalBeds = availableBeds - severeCases;
-  output.hospitalBedsByRequestedTime = hospitalBeds;
+  const cases = output.impact.severeCasesByRequestedTime;
+  const severeCases = output.severeImpact.severeCasesByRequestedTime;
+
+  output.impact.hospitalBedsByRequestedTime = availableBeds - cases;
+  output.severeImpact.hospitalBedsByRequestedTime = availableBeds - severeCases;
+  // const hospitalBeds = availableBeds - severeCases;
 
   output.data = data;
   return output;
 };
 
-export default covid19ImpactEstimator;
+module.exports = covid19ImpactEstimator;
