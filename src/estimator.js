@@ -17,7 +17,7 @@ const infectionsAtaTime = (currentlyInfected, days, data) => {
   }
   let setsOfDays = Math.trunc((normalisedDays / 3));
   setsOfDays = Number(setsOfDays);
-  return currentlyInfected * (2 ** setsOfDays);
+  return Math.trunc(currentlyInfected * (2 ** setsOfDays));
 };
 
 const covid19ImpactEstimator = (data) => {
