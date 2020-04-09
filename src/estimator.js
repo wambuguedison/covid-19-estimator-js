@@ -15,9 +15,9 @@ const infectionsAtaTime = (currentlyInfected, days, data) => {
   if (data.periodType === "months") {
     normalisedDays = days * 30;
   }
-  let setsOfDays = Math.trunc((normalisedDays / 3));
+  let setsOfDays = Number((normalisedDays / 3).toFixed());
   setsOfDays = Number(setsOfDays);
-  return Math.trunc(currentlyInfected * (2 ** setsOfDays));
+  return Number((currentlyInfected * (2 ** setsOfDays)).toFixed());
 };
 
 const covid19ImpactEstimator = (data) => {
@@ -35,11 +35,11 @@ const covid19ImpactEstimator = (data) => {
   // challenge 2
   const infections = output.impact.infectionsByRequestedTime;
   const severeInfections = output.severeImpact.infectionsByRequestedTime;
-  output.impact.severeCasesByRequestedTime = Math.trunc((15 / 100) * infections);
-  output.severeImpact.severeCasesByRequestedTime = Math.trunc((15 / 100) * severeInfections);
+  output.impact.severeCasesByRequestedTime = Number((15 / 100) * infections);
+  output.severeImpact.severeCasesByRequestedTime = Number(((15 / 100) * severeInfections).toFixed());
 
   const totalBeds = data.totalHospitalBeds;
-  const availableBeds = Math.trunc((35 / 100) * totalBeds);
+  const availableBeds = Number(((35 / 100) * totalBeds).toFixed());
 
   const cases = output.impact.severeCasesByRequestedTime;
   const severeCases = output.severeImpact.severeCasesByRequestedTime;
