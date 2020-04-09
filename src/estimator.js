@@ -4,7 +4,6 @@ const output = {
   severeImpact: {}
 };
 
-
 const infectionsAtaTime = (currentlyInfected, days, data) => {
   let normalisedDays;
   if (data.periodType === "days") {
