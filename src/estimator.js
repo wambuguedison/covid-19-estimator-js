@@ -4,8 +4,19 @@ const output = {
   severeImpact: {}
 };
 
-const infectionsAtaTime = (currentlyInfected, days) => {
-  let setsOfDays = (days / 3).toFixed();
+
+const infectionsAtaTime = (currentlyInfected, days, data) => {
+  let normalisedDays;
+  if (data.periodType === "days") {
+    normalisedDays = days;
+  }
+  if (data.periodType === "weeks") {
+    normalisedDays = days * 7;
+  }
+  if (data.periodType === "months") {
+    normalisedDays = days * 30;
+  }
+  let setsOfDays = (normalisedDays / 3).toFixed();
   setsOfDays = Number(setsOfDays);
   return currentlyInfected * (2 ** setsOfDays);
 };
@@ -18,8 +29,8 @@ const covid19ImpactEstimator = (data) => {
   output.severeImpact.currentlyInfected = severelyInfected;
 
   const days = data.timeToElapse;
-  output.impact.infectionsByRequestedTime = infectionsAtaTime(currentlyInfected, days);
-  output.severeImpact.infectionsByRequestedTime = infectionsAtaTime(severelyInfected, days);
+  output.impact.infectionsByRequestedTime = infectionsAtaTime(currentlyInfected, days, data);
+  output.severeImpact.infectionsByRequestedTime = infectionsAtaTime(severelyInfected, days, data);
 
   output.data = data;
   return output;
